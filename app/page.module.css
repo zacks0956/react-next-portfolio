@@ -44,9 +44,17 @@
 .newsTitle {
   font-size: 1.5rem;
 }
-.list {
-  border-bottom: 1px solid var(--color-border-light);
+
+.newsLink {
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
 }
+
+.list {
+      border-bottom: 1px solid var(--color-border-light);
+}
+
 .list:last-child {
   border-bottom: none;
 }
@@ -129,4 +137,12 @@
     margin: -20px auto 0;
     padding: 16px 24px;
   }
+
+  .newsLink {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 16px;
+  }
+
 }

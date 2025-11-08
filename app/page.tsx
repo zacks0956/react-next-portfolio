@@ -1,6 +1,8 @@
 import styles from "./page.module.css";
 import Image from "next/image";
 
+import ButtonLink from "@/app/_components/ButtonLink";
+
 type News = {
   id: string;
   title: string;
@@ -19,8 +21,8 @@ const data: {
       id: "1",
       title: "渋谷にオフィスを移転しました",
       category: { name: "更新情報" },
-      publishedAt: "2023-05-19",
-      createAt: "2023-05-19",
+      publishedAt: "2023/05/19",
+      createAt: "2023/05/19",
     },
     {
       id: "2",
@@ -28,8 +30,8 @@ const data: {
       category: {
         name: "更新情報",
       },
-      publishedAt: "2023-05-19",
-      createAt: "2023-05-19",
+      publishedAt: "2023/05/19",
+      createAt: "2023/05/19",
     },
     {
       id: "3",
@@ -37,13 +39,14 @@ const data: {
       category: {
         name: "更新情報",
       },
-      publishedAt: "2023-04-19",
-      createAt: "2023-04-19",
+      publishedAt: "2023/04/19",
+      createAt: "2023/04/19",
     },
   ],
 };
 
 export default function Home() {
+  // const sliceData = data.contents.slice(0,2);
   const sliceData = data.contents.slice(0, 2);
 
   return (
@@ -71,7 +74,7 @@ export default function Home() {
               <div className={styles.link}>
                 <Image
                   className={styles.image}
-                  src="/noimage.png"
+                  src="/no-image.png"
                   alt="No Image"
                   width={1200}
                   height={630}
@@ -96,6 +99,9 @@ export default function Home() {
             </li>
           ))}
         </ul>
+        <div className={styles.newsLink}>
+          <ButtonLink href="/news">もっとみる</ButtonLink>
+        </div>
       </section>
     </>
   );
