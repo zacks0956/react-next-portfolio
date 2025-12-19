@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./index.module.css";
+import { Suspense } from "react";
 
-export default function SearchField() {
+function SearchFieldComponent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -32,5 +33,13 @@ export default function SearchField() {
                 />
             </label>
         </form>
+    );
+}
+
+export default function SearchField() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <SearchFieldComponent />
+        </Suspense>
     );
 }
