@@ -1,27 +1,17 @@
 import "./globals.css";
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
-import Header from "./_components/Header";
-import Footer from "./_components/Footer";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://localhost:3000"),
   title: {
-    template: "%s | シンプルなコーポレートサイト",
-    default: "シンプルなコーポレートサイト",
+    template: "%s | GitHub Portfolio",
+    default: "Sho Suzaku - GitHub Portfolio",
   },
-  description: 
-  "「Next.js+ヘッドレスCMSではじめる！かんたん・モダンWebサイト制作入門」で作成されるサイトです。",
+  description: "A GitHub-styled personal portfolio showcasing projects and experience.",
   openGraph: {
-    title: "シンプルなコーポレートサイト",
-    description:
-      "「Next.js+ヘッドレスCMSではじめる！かんたん・モダンWebサイト制作入門」で作成されるサイトです。",
+    title: "Sho Suzaku - GitHub Portfolio",
+    description: "A GitHub-styled personal portfolio showcasing projects and experience.",
   },
-  alternates: {
-    canonical: "https://localhost:3000",
-  },
-  };
+};
 
 export default function RootLayout({
   children,
@@ -29,13 +19,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body>
-        <Header />
+    <html lang="en" className="dark">
+      <body className="bg-github-canvas-default text-github-fg-default min-h-screen">
         {children}
-        <Footer />
       </body>
-      <GoogleTagManager gtmId="GTM-XXX" />
     </html>
   );
 }
