@@ -1,0 +1,87 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Mail, Github, Linkedin, Twitter } from 'lucide-react';
+
+export default function Contact() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const socialLinks = [
+    {
+      name: 'Email',
+      icon: Mail,
+      href: 'mailto:your.email@example.com',
+      label: 'your.email@example.com',
+    },
+    {
+      name: 'GitHub',
+      icon: Github,
+      href: 'https://github.com/yourusername',
+      label: '@yourusername',
+    },
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      href: 'https://linkedin.com/in/yourusername',
+      label: '/in/yourusername',
+    },
+    {
+      name: 'Twitter',
+      icon: Twitter,
+      href: 'https://twitter.com/yourusername',
+      label: '@yourusername',
+    },
+  ];
+
+  return (
+    <section id="contact" className="py-20 px-6">
+      <div className="max-w-3xl mx-auto">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-neutral-100 mb-8">
+            お問い合わせ
+          </h2>
+
+          <p className="text-neutral-400 text-lg mb-12 leading-relaxed">
+            新しいプロジェクトのご相談や、コラボレーションの機会がございましたら、
+            お気軽にご連絡ください。お話できることを楽しみにしています！
+          </p>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {socialLinks.map((link, index) => {
+              const Icon = link.icon;
+              return (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 hover:border-neutral-700 transition-all flex items-center gap-4 group"
+                >
+                  <div className="bg-neutral-800 p-3 rounded-lg group-hover:bg-neutral-700 transition-colors">
+                    <Icon className="text-neutral-300" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-neutral-300 font-medium">{link.name}</div>
+                    <div className="text-neutral-500 text-sm">{link.label}</div>
+                  </div>
+                </motion.a>
+              );
+            })}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
