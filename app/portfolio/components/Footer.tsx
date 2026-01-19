@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Copyright */}
           <div className="text-neutral-500 text-sm">
-            © {currentYear} Designed & Built by <span className="text-neutral-300">太郎</span>
+            © {currentYear} Designed & Built by <span className="text-neutral-300">Sho</span>
           </div>
 
           {/* Social Links */}

@@ -43,7 +43,7 @@ export default function Header() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="text-xl font-bold text-neutral-100 hover:text-white transition-colors"
           >
-            Code by <span className="text-blue-400">太郎</span>
+            Code by <span className="text-blue-400">Sho</span>
           </button>
 
           {/* Desktop Navigation */}
