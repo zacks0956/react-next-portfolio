@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [clickedButton, setClickedButton] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,6 +18,7 @@ export default function Header() {
   }, []);
 
   const scrollToSection = (id: string) => {
+    setClickedButton(id);
     const element = document.getElementById(id);
     if (element) {
       const offset = 80;
@@ -48,30 +51,66 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <button
+            <motion.button
               onClick={() => scrollToSection('about')}
+              animate={clickedButton === 'about' ? { 
+                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
+              } : { rotate: 0 }}
+              transition={clickedButton === 'about' ? {
+                duration: 0.6,
+                ease: "easeInOut"
+              } : { type: "spring", stiffness: 300, damping: 20 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
               className="text-neutral-300 hover:text-white transition-colors text-sm"
             >
               概要
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => scrollToSection('skills')}
+              animate={clickedButton === 'skills' ? { 
+                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
+              } : { rotate: 0 }}
+              transition={clickedButton === 'skills' ? {
+                duration: 0.6,
+                ease: "easeInOut"
+              } : { type: "spring", stiffness: 300, damping: 20 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
               className="text-neutral-300 hover:text-white transition-colors text-sm"
             >
               スキル
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => scrollToSection('projects')}
+              animate={clickedButton === 'projects' ? { 
+                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
+              } : { rotate: 0 }}
+              transition={clickedButton === 'projects' ? {
+                duration: 0.6,
+                ease: "easeInOut"
+              } : { type: "spring", stiffness: 300, damping: 20 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
               className="text-neutral-300 hover:text-white transition-colors text-sm"
             >
               プロジェクト
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => scrollToSection('contact')}
+              animate={clickedButton === 'contact' ? { 
+                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
+              } : { rotate: 0 }}
+              transition={clickedButton === 'contact' ? {
+                duration: 0.6,
+                ease: "easeInOut"
+              } : { type: "spring", stiffness: 300, damping: 20 }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
               className="text-neutral-300 hover:text-white transition-colors text-sm"
             >
               お問い合わせ
-            </button>
+            </motion.button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -86,30 +125,34 @@ export default function Header() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-4 border-t border-neutral-800 pt-4">
-            <button
+            <motion.button
               onClick={() => scrollToSection('about')}
+              whileTap={{ scale: 0.95, x: 10 }}
               className="text-neutral-300 hover:text-white transition-colors text-left"
             >
               概要
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => scrollToSection('skills')}
+              whileTap={{ scale: 0.95, x: 10 }}
               className="text-neutral-300 hover:text-white transition-colors text-left"
             >
               スキル
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => scrollToSection('projects')}
+              whileTap={{ scale: 0.95, x: 10 }}
               className="text-neutral-300 hover:text-white transition-colors text-left"
             >
               プロジェクト
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={() => scrollToSection('contact')}
+              whileTap={{ scale: 0.95, x: 10 }}
               className="text-neutral-300 hover:text-white transition-colors text-left"
             >
               お問い合わせ
-            </button>
+            </motion.button>
           </div>
         )}
       </nav>

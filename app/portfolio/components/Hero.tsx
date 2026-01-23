@@ -2,8 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
+import { useState } from 'react';
 
 export default function Hero() {
+  const [isDetailClicked, setIsDetailClicked] = useState(false);
+  const [isContactClicked, setIsContactClicked] = useState(false);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -22,7 +26,7 @@ export default function Hero() {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: 'easeOut',
+        ease: 'easeOut' as const,
       },
     },
   };
@@ -80,18 +84,66 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => scrollToAbout}
+          <motion.button
+            onClick={() => {
+              scrollToAbout();
+              setIsDetailClicked(true);
+            }}
+            animate={isDetailClicked ? { 
+              rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
+            } : { rotate: 0 }}
+            transition={isDetailClicked ? {
+              duration: 0.6,
+              ease: "easeInOut"
+            } : { type: "spring", stiffness: 300, damping: 20 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.2 }
+            }}
             className="px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors"
           >
             詳しく見る
-          </button>
-          <a
+          </motion.button>
+          <motion.a
             href="#contact"
-            className="px-8 py-3 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 rounded-lg font-medium transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById('contact');
+              if (element) {
+                const offset = 80;
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({
+                  top: elementPosition - offset,
+                  behavior: 'smooth'
+                });
+              }
+              setIsContactClicked(true);
+            }}
+            animate={isContactClicked ? { 
+              rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
+            } : { rotate: 0 }}
+            transition={isContactClicked ? {
+              duration: 0.6,
+              ease: "easeInOut"
+            } : { type: "spring", stiffness: 300, damping: 20 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.2 }
+            }}
+            className="px-8 py-3 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 rounded-lg font-medium transition-colors inline-block relative overflow-hidden"
           >
-            お問い合わせ
-          </a>
+            <motion.span
+              className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-500/20"
+              initial={{ x: '-100%' }}
+              whileTap={{ 
+                x: '100%',
+                transition: { duration: 0.6 }
+              }}
+            />
+            <span className="relative">お問い合わせ</span>
+          </motion.a>
         </motion.div>
 
         {/* Scroll Indicator */}

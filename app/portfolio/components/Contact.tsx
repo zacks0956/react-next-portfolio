@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Github, Phone, Twitter } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Contact() {
   const ref = useRef(null);
@@ -13,20 +14,22 @@ export default function Contact() {
     {
       name: 'Email',
       icon: Mail,
-      href: 'mailto:your.email@example.com',
-      label: 'your.email@example.com',
+      href: 'mailto:KTC25A31E0009@edu.kyoto-tech.ac.jp',
+      label: 'KTC25A31E0009@edu.kyoto-tech.ac.jp',
+      imageUrl: 'https://kyoto-tech.ac.jp/assets/images/logo_mark_b.svg',
+      isImage: true,
     },
     {
       name: 'GitHub',
       icon: Github,
-      href: 'https://github.com/yourusername',
-      label: '@yourusername',
+      href: 'https://github.com/zacks0956',
+      label: '@zacks0956',
     },
     {
-      name: 'LinkedIn',
-      icon: Linkedin,
-      href: 'https://linkedin.com/in/yourusername',
-      label: '/in/yourusername',
+      name: '電話番号',
+      icon: Phone,
+      href: 'tel:0120-109-525',
+      label: '0120-109-525',
     },
     {
       name: 'Twitter',
@@ -67,10 +70,36 @@ export default function Contact() {
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 hover:border-neutral-700 transition-all flex items-center gap-4 group"
+                  whileTap={{ 
+                    scale: 0.95,
+                    rotate: [-6, 4, -4, 3, -2, 0],
+                    transition: { duration: 0.5 }
+                  }}
+                  className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 hover:border-neutral-700 transition-all flex items-center gap-4 group relative overflow-hidden"
                 >
-                  <div className="bg-neutral-800 p-3 rounded-lg group-hover:bg-neutral-700 transition-colors">
-                    <Icon className="text-neutral-300" size={24} />
+                  {/* クリック時のリップル効果 */}
+                  <motion.div
+                    className="absolute inset-0 bg-blue-500/20"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileTap={{ 
+                      scale: 2,
+                      opacity: [0, 1, 0],
+                      transition: { duration: 0.6 }
+                    }}
+                  />
+                  
+                  <div className="bg-neutral-800 p-3 rounded-lg group-hover:bg-neutral-700 transition-colors relative w-12 h-12 flex items-center justify-center">
+                    {link.isImage && link.imageUrl ? (
+                      <Image
+                        src={link.imageUrl}
+                        alt={link.name}
+                        width={24}
+                        height={24}
+                        className="object-contain"
+                      />
+                    ) : (
+                      <Icon className="text-neutral-300" size={24} />
+                    )}
                   </div>
                   <div>
                     <div className="text-neutral-300 font-medium">{link.name}</div>
