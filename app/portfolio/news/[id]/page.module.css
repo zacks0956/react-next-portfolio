@@ -1,0 +1,157 @@
+.content {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgb(96, 165, 250);
+  margin-bottom: 2rem;
+  transition: color 0.3s;
+}
+
+.backLink:hover {
+  color: rgb(147, 197, 253);
+}
+
+.thumbnail {
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgb(163, 163, 163);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(59, 130, 246, 0.2);
+  color: rgb(96, 165, 250);
+  padding: 0.25rem 1rem;
+  border-radius: 9999px;
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: rgb(245, 245, 245);
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 3rem;
+  }
+}
+
+.articleContent {
+  color: rgb(212, 212, 212);
+  line-height: 1.75;
+}
+
+.articleContent :global(h1),
+.articleContent :global(h2),
+.articleContent :global(h3),
+.articleContent :global(h4) {
+  color: rgb(245, 245, 245);
+  font-weight: 700;
+}
+
+.articleContent :global(h2) {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.articleContent :global(h3) {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.articleContent :global(p) {
+  margin-bottom: 1rem;
+}
+
+.articleContent :global(ul),
+.articleContent :global(ol) {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.articleContent :global(li) {
+  margin-bottom: 0.5rem;
+}
+
+.articleContent :global(strong) {
+  color: rgb(245, 245, 245);
+  font-weight: 600;
+}
+
+.articleContent :global(a) {
+  color: rgb(96, 165, 250);
+  text-decoration: underline;
+}
+
+.articleContent :global(a:hover) {
+  color: rgb(147, 197, 253);
+}
+
+.articleContent :global(blockquote) {
+  border-left: 4px solid rgb(59, 130, 246);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: rgb(163, 163, 163);
+  font-style: italic;
+}
+
+.articleContent :global(code) {
+  background-color: rgb(38, 38, 38);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.articleContent :global(pre) {
+  background-color: rgb(38, 38, 38);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.articleContent :global(img) {
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgb(38, 38, 38);
+}

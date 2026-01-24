@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# react-next-portfolio
 
-## Getting Started
+サイトURL: 
 
-First, run the development server:
+「Perfectly Imperfect（完璧に、不完全）」をコンセプトに、完璧を追い求めながらも不完全さを受け入れることで成長し続ける姿勢を表現したポートフォリオサイトです。Next.js 14とReactを使用し、MicroCMSと連携したモダンなWebアプリケーションとして構築しました。
+
+## 技術スタック
+
+- **フレームワーク**: Next.js 14.1.4 (App Router)
+- **UI**: React 18, Tailwind CSS 3.4.19, CSS Modules
+- **アニメーション**: Framer Motion 12.27.1
+- **CMS**: MicroCMS (microcms-js-sdk 3.1.0)
+- **アイコン**: Lucide React 0.562.0
+- **言語**: TypeScript 5
+
+## セットアップ
 
 ```bash
+# 依存関係のインストール
+npm install
+
+# 環境変数の設定（.env.localファイルを作成）
+MICROCMS_SERVICE_DOMAIN=your_domain
+MICROCMS_API_KEY=your_api_key
+
+# 開発サーバーの起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# 課題の紹介
 
-## Learn More
+## TOP
 
-To learn more about Next.js, take a look at the following resources:
+- **「Perfectly Imperfect」のコンセプト表現**: 文字が落下して衝突時にグリッチエフェクトを発生させ、マウスホバーで磁力のように元の位置に戻るインタラクティブなヒーローセクション
+- **多層的な背景アニメーション**: 夜景画像、星のアニメーション、ストライプエフェクトを組み合わせた奥行きのある視覚表現
+- **レスポンシブナビゲーション**: デスクトップとモバイルで最適化されたヘッダーメニューとスムーズスクロール機能
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 自己紹介のページ
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **コンセプトに沿った自己紹介文**: 「完璧を追い求めながらも、不完全さを恐れない」という哲学を軸にした自己紹介
+- **スキルスタックの可視化**: React、Next.js、TypeScript、Tailwind CSSなどの主要技術をカード形式で表示
 
-## Deploy on Vercel
+## ブログ一覧ページ（ニュース一覧）
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **MicroCMS連携**: ヘッドレスCMSから記事データを動的に取得して表示
+- **最適化された画像表示**: Next.js Imageコンポーネントを使用した自動最適化とレスポンシブ対応
+- **カード型レイアウト**: サムネイル、カテゴリー、日付、説明文を含む見やすいカードデザイン
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## ブログ詳細ページ（ニュース詳細）
+
+- **動的ルーティング**: Next.jsのApp Routerを活用した[id]による動的ページ生成
+- **リッチコンテンツ表示**: HTMLコンテンツのレンダリングとスタイリング
+- **メタデータの表示**: カテゴリー、公開日、更新日などの情報を整理して表示
+
+---
+
+# 一番見てほしいところ
+
+- **ヒーローセクションのインタラクティブアニメーション**: 文字が重力で落下し、衝突時にRGBスプリットのグリッチエフェクトが発生。マウスホバーで磁力のように引き寄せられて元の位置に戻る、物理演算を取り入れたユニークな演出
+- **パフォーマンス最適化**: 星の数を100個から50個に削減、マウスイベントのthrottling（50ms）、useMemo/useCallbackによるメモ化など、視覚効果と動作速度のバランスを重視
+- **MicroCMS統合**: ヘッドレスCMSを活用した記事管理システムで、コンテンツの追加・更新がコード変更なしで可能
+
+---
+
+# 力を入れた点
+
+## 実装面
+
+- **コンポーネント設計**: 再利用可能なコンポーネント構成とCSS Modulesによるスコープ化されたスタイリング
+- **型安全性**: TypeScriptによる完全な型定義（News、NewsResponse、MicroCMS APIレスポンス）
+- **Next.js最適化**: Server ComponentsとClient Componentsの適切な使い分け、Image最適化、動的メタデータ生成
+- **パフォーマンスチューニング**: アニメーションの最適化（GPU加速、will-change）、イベントのthrottling、lazy loading
+
+## デザイン面
+
+- **一貫したカラーパレット**: ニュートラルカラー（グレースケール）をベースに、アクセントカラーとして青を使用したダークテーマ
+- **アニメーション演出**: Framer Motionを活用したスムーズなトランジションとスクロールアニメーション
+- **視覚的階層**: タイポグラフィのサイズとウェイトのバランス、適切な余白設計
+- **レスポンシブデザイン**: モバイルファーストのアプローチで、あらゆるデバイスサイズに対応
+
+---
+
+## ライセンス
+
+This project is licensed under the MIT License.

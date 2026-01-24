@@ -82,11 +82,11 @@ export default function Header() {
               スキル
             </motion.button>
             <motion.button
-              onClick={() => scrollToSection('projects')}
-              animate={clickedButton === 'projects' ? { 
+              onClick={() => scrollToSection('news')}
+              animate={clickedButton === 'news' ? { 
                 rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
               } : { rotate: 0 }}
-              transition={clickedButton === 'projects' ? {
+              transition={clickedButton === 'news' ? {
                 duration: 0.6,
                 ease: "easeInOut"
               } : { type: "spring", stiffness: 300, damping: 20 }}
@@ -94,7 +94,7 @@ export default function Header() {
               whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
               className="text-neutral-300 hover:text-white transition-colors text-sm"
             >
-              プロジェクト
+              ニュース
             </motion.button>
             <motion.button
               onClick={() => scrollToSection('contact')}
@@ -140,11 +140,11 @@ export default function Header() {
               スキル
             </motion.button>
             <motion.button
-              onClick={() => scrollToSection('projects')}
+              onClick={() => scrollToSection('news')}
               whileTap={{ scale: 0.95, x: 10 }}
               className="text-neutral-300 hover:text-white transition-colors text-left"
             >
-              プロジェクト
+              ニュース
             </motion.button>
             <motion.button
               onClick={() => scrollToSection('contact')}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Github, Instagram, Mail } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,7 +17,7 @@ export default function Footer() {
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/zacks0956"
               target="_blank"
               rel="noopener noreferrer"
               className="text-neutral-500 hover:text-neutral-300 transition-colors"
@@ -26,25 +26,16 @@ export default function Footer() {
               <Github size={20} />
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.instagram.com/suzaku.0695?igsh=cXBhYzI5aTJhMTF6&utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
               className="text-neutral-500 hover:text-neutral-300 transition-colors"
-              aria-label="LinkedIn"
+              aria-label="Instagram"
             >
-              <Linkedin size={20} />
+              <Instagram size={20} />
             </a>
             <a
-              href="https://twitter.com/yourusername"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-500 hover:text-neutral-300 transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter size={20} />
-            </a>
-            <a
-              href="mailto:your.email@example.com"
+              href="mailto:KTC25A31E0009@edu.kyoto-tech.ac.jp"
               className="text-neutral-500 hover:text-neutral-300 transition-colors"
               aria-label="Email"
             >

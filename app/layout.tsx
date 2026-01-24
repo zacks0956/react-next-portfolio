@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | GitHub Portfolio",
-    default: "Sho Suzaku - GitHub Portfolio",
+    template: "%s | ポートフォリオ",
+    default: "Sho Suzaku - ポートフォリオ",
   },
   description: "A GitHub-styled personal portfolio showcasing projects and experience.",
   openGraph: {
-    title: "Sho Suzaku - GitHub Portfolio",
+    title: "Sho Suzaku - ポートフォリオ",
     description: "A GitHub-styled personal portfolio showcasing projects and experience.",
   },
 };

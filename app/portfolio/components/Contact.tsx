@@ -2,15 +2,15 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Mail, Github, Phone, Twitter } from 'lucide-react';
+import { useRef, useMemo } from 'react';
+import { Mail, Github, Instagram } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Contact() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const socialLinks = [
+  const socialLinks = useMemo(() => [
     {
       name: 'Email',
       icon: Mail,
@@ -27,17 +27,19 @@ export default function Contact() {
     },
     {
       name: '電話番号',
-      icon: Phone,
+      icon: Mail,
       href: 'tel:0120-109-525',
       label: '0120-109-525',
+      imageUrl: 'https://kyoto-tech.ac.jp/assets/images/logo_mark_b.svg',
+      isImage: true,
     },
     {
-      name: 'Twitter',
-      icon: Twitter,
-      href: 'https://twitter.com/yourusername',
-      label: '@yourusername',
+      name: 'Instagram',
+      icon: Instagram,
+      href: 'https://www.instagram.com/suzaku.0695?igsh=cXBhYzI5aTJhMTF6&utm_source=qr',
+      label: '@suzaku.0695',
     },
-  ];
+  ], []);
 
   return (
     <section id="contact" className="py-20 px-6">
@@ -60,12 +62,13 @@ export default function Contact() {
           <div className="grid gap-4 sm:grid-cols-2">
             {socialLinks.map((link, index) => {
               const Icon = link.icon;
+              const isPhoneLink = link.href.startsWith('tel:');
               return (
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={isPhoneLink ? undefined : "_blank"}
+                  rel={isPhoneLink ? undefined : "noopener noreferrer"}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}

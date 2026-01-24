@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import styles from './StarsBackground.module.css';
 
 interface Star {
@@ -19,34 +19,39 @@ interface TrailStar {
 }
 
 export default function StarsBackground() {
-  const [stars, setStars] = useState<Star[]>([]);
   const [trailStars, setTrailStars] = useState<TrailStar[]>([]);
 
+  // 星の生成を最適化 - 初回のみ生成
+  const stars = useMemo(() => {
+    const starCount = 50; // 100から50に削減
+    const newStars: Star[] = [];
+
+    for (let i = 0; i < starCount; i++) {
+      newStars.push({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        size: Math.random() * 2 + 1,
+        animationDelay: `${Math.random() * 5}s`,
+        animationDuration: `${Math.random() * 3 + 2}s`,
+      });
+    }
+
+    return newStars;
+  }, []);
+
   useEffect(() => {
-    // ランダムな位置に星を生成
-    const generateStars = () => {
-      const starCount = 100;
-      const newStars: Star[] = [];
-
-      for (let i = 0; i < starCount; i++) {
-        newStars.push({
-          id: i,
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          size: Math.random() * 2 + 1,
-          animationDelay: `${Math.random() * 5}s`,
-          animationDuration: `${Math.random() * 3 + 2}s`,
-        });
-      }
-
-      setStars(newStars);
-    };
-
-    generateStars();
-
-    // マウストラッキング
     let starId = 0;
+    let throttleTimeout: NodeJS.Timeout | null = null;
+
+    // スロットリング付きマウストラッキング
     const handleMouseMove = (e: MouseEvent) => {
+      if (throttleTimeout) return;
+
+      throttleTimeout = setTimeout(() => {
+        throttleTimeout = null;
+      }, 50); // 50msごとに制限
+
       const newStar: TrailStar = {
         id: starId++,
         x: e.clientX,
@@ -55,20 +60,21 @@ export default function StarsBackground() {
 
       setTrailStars(prev => {
         const updated = [...prev, newStar];
-        // 最新の20個のみ保持
-        return updated.slice(-20);
+        // 最新の10個のみ保持（20から削減）
+        return updated.slice(-10);
       });
 
       // 星を一定時間後に削除
       setTimeout(() => {
         setTrailStars(prev => prev.filter(s => s.id !== newStar.id));
-      }, 1000);
+      }, 800); // 1000msから800msに短縮
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      if (throttleTimeout) clearTimeout(throttleTimeout);
     };
   }, []);
 
