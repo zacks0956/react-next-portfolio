@@ -1,6 +1,6 @@
 # react-next-portfolio
 
-サイトURL: 
+サイトURL: https://react-next-portfolio-ten.vercel.app/portfolio
 
 「Perfectly Imperfect（完璧に、不完全）」をコンセプトに、完璧を追い求めながらも不完全さを受け入れることで成長し続ける姿勢を表現したポートフォリオサイトです。Next.js 14とReactを使用し、MicroCMSと連携したモダンなWebアプリケーションとして構築しました。
 
@@ -13,23 +13,6 @@
 - **アイコン**: Lucide React 0.562.0
 - **言語**: TypeScript 5
 
-## セットアップ
-
-```bash
-# 依存関係のインストール
-npm install
-
-# 環境変数の設定（.env.localファイルを作成）
-MICROCMS_SERVICE_DOMAIN=your_domain
-MICROCMS_API_KEY=your_api_key
-
-# 開発サーバーの起動
-npm run dev
-```
-
-ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
-
----
 
 # 課題の紹介
 
@@ -41,7 +24,6 @@ npm run dev
 
 ## 自己紹介のページ
 
-- **コンセプトに沿った自己紹介文**: 「完璧を追い求めながらも、不完全さを恐れない」という哲学を軸にした自己紹介
 - **スキルスタックの可視化**: React、Next.js、TypeScript、Tailwind CSSなどの主要技術をカード形式で表示
 
 ## ブログ一覧ページ（ニュース一覧）
@@ -61,6 +43,7 @@ npm run dev
 # 一番見てほしいところ
 
 - **ヒーローセクションのインタラクティブアニメーション**: 文字が重力で落下し、衝突時にRGBスプリットのグリッチエフェクトが発生。マウスホバーで磁力のように引き寄せられて元の位置に戻る、物理演算を取り入れたユニークな演出
+- **技術スタックの消滅インタラクション**: スキルセクションの技術カードを5回クリックすると消滅する仕掛け。これは「Perfectly Imperfect」のコンセプトを体現し、その言語の習熟度が不完全であること、常に学び続ける姿勢を表現しています
 - **パフォーマンス最適化**: 星の数を100個から50個に削減、マウスイベントのthrottling（50ms）、useMemo/useCallbackによるメモ化など、視覚効果と動作速度のバランスを重視
 - **MicroCMS統合**: ヘッドレスCMSを活用した記事管理システムで、コンテンツの追加・更新がコード変更なしで可能
 
@@ -82,8 +65,3 @@ npm run dev
 - **視覚的階層**: タイポグラフィのサイズとウェイトのバランス、適切な余白設計
 - **レスポンシブデザイン**: モバイルファーストのアプローチで、あらゆるデバイスサイズに対応
 
----
-
-## ライセンス
-
-This project is licensed under the MIT License.
