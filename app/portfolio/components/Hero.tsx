@@ -57,8 +57,8 @@ export default function Hero() {
       if (letterEl) {
         const rect = letterEl.getBoundingClientRect();
         originalPositions.current.set(id, { 
-          x: rect.left + window.pageScrollX, 
-          y: rect.top + window.pageScrollY 
+          x: rect.left + window.scrollX, 
+          y: rect.top + window.scrollY 
         });
       }
     });
@@ -98,8 +98,8 @@ export default function Hero() {
     
     // Store original position
     originalPositions.current.set(id, { 
-      x: startX + window.pageScrollX, 
-      y: startY + window.pageScrollY 
+      x: startX + window.scrollX, 
+      y: startY + window.scrollY 
     });
 
     // Random physics
