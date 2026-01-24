@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import Link from 'next/link';
 
 export default function About() {
   const ref = useRef(null);
@@ -46,6 +47,31 @@ export default function About() {
               真の成長への道だと信じています。
             </p>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-10 flex justify-center"
+          >
+            <Link href="/blog">
+              <motion.div
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 hover:border-blue-400 text-blue-400 rounded-lg font-medium transition-all duration-300 flex items-center gap-3 group cursor-pointer"
+              >
+                <span>ブログ記事を見る</span>
+                <svg 
+                  className="w-5 h-5 group-hover:translate-x-1 transition-transform" 
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </motion.div>
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>
