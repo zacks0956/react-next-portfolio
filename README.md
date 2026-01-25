@@ -2,83 +2,13 @@
 
 サイトURL: https://react-next-portfolio-ten.vercel.app
 
-「Perfectly Imperfect（完璧に、不完全）」をコンセプトに、完璧を追い求めながらも不完全さを受け入れることで成長し続ける姿勢を表現したポートフォリオサイトです。Next.js 14とReactを使用し、MicroCMSと連携したモダンなWebアプリケーションとして構築しました。
-
-## 技術スタック
-
-- **フレームワーク**: Next.js 14.1.4 (App Router)
-- **UI**: React 18, Tailwind CSS 3.4.19, CSS Modules
-- **アニメーション**: Framer Motion 12.27.1
-- **CMS**: MicroCMS (microcms-js-sdk 3.1.0)
-- **アイコン**: Lucide React 0.562.0
-- **言語**: TypeScript 5
-
-## MicroCMS コンテンツ設定
-
-### エンドポイント: `blogs` / `news`
-ブログシステムは2つのエンドポイントを統合して使用します。
-
-**必須フィールド:**
-- `title`: テキストフィールド（必須）
-- `content`: リッチエディタ（必須）
-- `description`: テキストフィールド
-- `thumbnail`: 画像
-- `category`: コンテンツ参照
-- `tags`: 複数選択（オプション）
-
-### カテゴリー設定
-以下のカテゴリーを作成してください：
-
-1. **更新情報** - サイトの更新や新機能のお知らせ
-2. **資格** - 取得した資格・認定に関する記事
-3. **イベント** - 参加したイベント、勉強会、カンファレンスなどの記録
-4. **企業プロジェクト** - 実務で関わったプロジェクトの紹介
-5. **作品** - 個人制作物やポートフォリオ作品の紹介
-
-### タグの例
-各カテゴリーで使用可能なタグの例：
-
-**技術スタック:**
-- フロントエンド: React, Next.js, Vue.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS
-- バックエンド: Node.js, Python, Django, FastAPI, Express
-- データベース: PostgreSQL, MongoDB, MySQL, Firebase
-- クラウド: Azure, AWS, GCP, Vercel
-- ツール: Git, Docker, VS Code
-
-**資格・認定:**
-- Microsoft: Azure, MOS, AI Fundamentals
-- AWS: Solutions Architect, Developer
-- 国家資格: 基本情報技術者, 応用情報技術者
-- 語学: TOEIC, 英検
-
-**開発分野:**
-- フロントエンド開発
-- バックエンド開発
-- フルスタック開発
-- インフラ構築
-- UI/UXデザイン
-- データベース設計
-
-**プロジェクト種別:**
-- 個人開発
-- チーム開発
-- 業務委託
-- インターン
-- ハッカソン
-- コンテスト
-
-**学習・スキル:**
-- 学習記録
-- 技術検証
-- パフォーマンス最適化
-- セキュリティ
-- アクセシビリティ
-- テスト自動化
-
 
 # 課題の紹介
 
 ## TOP
+「Perfectly Imperfect（完璧に、不完全）」をコンセプトに、完璧を追い求めながらも不完全さを受け入れることで成長し続ける姿勢を表現したポートフォリオサイトです。Next.js 14とReactを使用し、MicroCMSと連携したモダンなWebアプリケーションとして構築しました。
+
+
 
 - **「Perfectly Imperfect」のコンセプト表現**: 文字が落下して衝突時にグリッチエフェクトを発生させ、マウスホバーで磁力のように元の位置に戻るインタラクティブなヒーローセクション
 - **多層的な背景アニメーション**: 夜景画像、星のアニメーション、ストライプエフェクトを組み合わせた奥行きのある視覚表現
