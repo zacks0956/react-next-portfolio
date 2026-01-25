@@ -1,6 +1,6 @@
 # react-next-portfolio
 
-サイトURL: https://react-next-portfolio-ten.vercel.app/portfolio
+サイトURL: https://react-next-portfolio-ten.vercel.app
 
 「Perfectly Imperfect（完璧に、不完全）」をコンセプトに、完璧を追い求めながらも不完全さを受け入れることで成長し続ける姿勢を表現したポートフォリオサイトです。Next.js 14とReactを使用し、MicroCMSと連携したモダンなWebアプリケーションとして構築しました。
 
