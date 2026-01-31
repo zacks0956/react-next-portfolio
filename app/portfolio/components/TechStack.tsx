@@ -25,10 +25,67 @@ export default function TechStack() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [clickedTech, setClickedTech] = useState<string | null>(null);
-  const [crackedTech, setCrackedTech] = useState<Set<string>>(new Set());
+  const [cracks, setCracks] = useState<Record<string, Array<{ direction: string; position: number; pathData: string }>>>({});
   const [clickCounts, setClickCounts] = useState<Record<string, number>>({});
   const [deletedTech, setDeletedTech] = useState<Set<string>>(new Set());
   const [explodingTech, setExplodingTech] = useState<string | null>(null);
+
+  // ジグザグの亀裂パスを生成
+  const generateCrackPath = (direction: string, position: number, length: number = 50) => {
+    const segments = 8; // ジグザグのセグメント数
+    const segmentLength = length / segments;
+    const maxDeviation = 8; // 最大のずれ幅
+    
+    let path = 'M';
+    let points: { x: number; y: number }[] = [];
+    
+    // 方向に応じて開始点と進行方向を設定
+    if (direction === 'top') {
+      points.push({ x: position, y: 0 });
+      for (let i = 1; i <= segments; i++) {
+        const deviation = (Math.random() - 0.5) * maxDeviation;
+        points.push({
+          x: position + deviation,
+          y: (i / segments) * length
+        });
+      }
+    } else if (direction === 'bottom') {
+      points.push({ x: position, y: 100 });
+      for (let i = 1; i <= segments; i++) {
+        const deviation = (Math.random() - 0.5) * maxDeviation;
+        points.push({
+          x: position + deviation,
+          y: 100 - (i / segments) * length
+        });
+      }
+    } else if (direction === 'left') {
+      points.push({ x: 0, y: position });
+      for (let i = 1; i <= segments; i++) {
+        const deviation = (Math.random() - 0.5) * maxDeviation;
+        points.push({
+          x: (i / segments) * length,
+          y: position + deviation
+        });
+      }
+    } else if (direction === 'right') {
+      points.push({ x: 100, y: position });
+      for (let i = 1; i <= segments; i++) {
+        const deviation = (Math.random() - 0.5) * maxDeviation;
+        points.push({
+          x: 100 - (i / segments) * length,
+          y: position + deviation
+        });
+      }
+    }
+    
+    // pathデータを生成
+    path += `${points[0].x} ${points[0].y}`;
+    for (let i = 1; i < points.length; i++) {
+      path += ` L${points[i].x} ${points[i].y}`;
+    }
+    
+    return path;
+  };
 
   const handleTechClick = (techName: string) => {
     if (deletedTech.has(techName)) return;
@@ -38,8 +95,19 @@ export default function TechStack() {
     const newCount = (clickCounts[techName] || 0) + 1;
     setClickCounts(prev => ({ ...prev, [techName]: newCount }));
     
-    // ひび割れを追加
-    setCrackedTech(prev => new Set(prev).add(techName));
+    // ランダムな方向に大きな亀裂を追加
+    const directions = ['top', 'right', 'bottom', 'left'];
+    const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+    const randomPosition = Math.random() * 60 + 20; // 20-80%の範囲
+    const pathData = generateCrackPath(randomDirection, randomPosition);
+    
+    setCracks(prev => ({
+      ...prev,
+      [techName]: [
+        ...(prev[techName] || []),
+        { direction: randomDirection, position: randomPosition, pathData }
+      ]
+    }));
     
     // 5回クリックで破壊
     if (newCount >= 5) {
@@ -49,6 +117,11 @@ export default function TechStack() {
       setTimeout(() => {
         setDeletedTech(prev => new Set(prev).add(techName));
         setExplodingTech(null);
+        setCracks(prev => {
+          const newCracks = { ...prev };
+          delete newCracks[techName];
+          return newCracks;
+        });
       }, 2500);
     }
   };
@@ -96,40 +169,81 @@ export default function TechStack() {
                 onClick={() => handleTechClick(tech.name)}
                 className={styles.techCard}
               >
-                {/* ひび割れエフェクト */}
-                {crackedTech.has(tech.name) && explodingTech !== tech.name && (
-                  <>
-                    {[...Array(Math.min((clickCounts[tech.name] || 0) * 2, 10))].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ scaleX: 0, opacity: 0 }}
-                        animate={{ scaleX: 1, opacity: 0.6 }}
-                        className={styles.crackLine}
-                        style={{
-                          width: '100%',
-                          height: '1px',
-                          top: '50%',
-                          left: '50%',
-                          transform: `rotate(${i * 36}deg) translateX(-50%)`,
-                        }}
-                      />
+                {/* 亀裂エフェクト */}
+                {cracks[tech.name] && explodingTech !== tech.name && (
+                  <svg
+                    className={styles.crackSvg}
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="none"
+                  >
+                    {cracks[tech.name].map((crack, i) => (
+                      <g key={i}>
+                        {/* メインの亀裂 */}
+                        <motion.path
+                          d={crack.pathData}
+                          stroke="rgba(255, 255, 255, 0.8)"
+                          strokeWidth="0.5"
+                          fill="none"
+                          filter="drop-shadow(0 0 2px rgba(255, 255, 255, 0.5))"
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
+                        />
+                        {/* 光る効果 */}
+                        <motion.path
+                          d={crack.pathData}
+                          stroke="rgba(96, 165, 250, 0.6)"
+                          strokeWidth="0.3"
+                          fill="none"
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: [0, 1, 0.3] }}
+                          transition={{ duration: 0.6, ease: "easeOut" }}
+                        />
+                      </g>
                     ))}
-                    {[...Array(Math.min((clickCounts[tech.name] || 0) * 3, 15))].map((_, i) => (
-                      <motion.div
-                        key={`crack-${i}`}
-                        initial={{ scaleY: 0, opacity: 0 }}
-                        animate={{ scaleY: 1, opacity: 0.5 }}
-                        className={styles.crackLineSecondary}
-                        style={{
-                          width: '2px',
-                          height: `${Math.random() * 50 + 30}px`,
-                          top: '50%',
-                          left: '50%',
-                          transform: `rotate(${Math.random() * 360}deg) translateX(-50%)`,
-                        }}
-                      />
+                    
+                    {/* 派生する小さな亀裂 */}
+                    {cracks[tech.name].map((crack, crackIndex) => (
+                      [...Array(4)].map((_, i) => {
+                        const angle = (Math.random() - 0.5) * 50;
+                        const branchLength = 10 + Math.random() * 15;
+                        
+                        // メイン亀裂の途中からブランチを生成
+                        const branchPoint = 30 + Math.random() * 40;
+                        let startX = 0, startY = 0, endX = 0, endY = 0;
+                        
+                        if (crack.direction === 'top' || crack.direction === 'bottom') {
+                          startX = crack.position;
+                          startY = crack.direction === 'top' ? branchPoint : (100 - branchPoint);
+                          endX = startX + Math.sin(angle * Math.PI / 180) * branchLength;
+                          endY = startY + (crack.direction === 'top' ? 1 : -1) * Math.cos(angle * Math.PI / 180) * branchLength;
+                        } else {
+                          startY = crack.position;
+                          startX = crack.direction === 'left' ? branchPoint : (100 - branchPoint);
+                          endY = startY + Math.sin(angle * Math.PI / 180) * branchLength;
+                          endX = startX + (crack.direction === 'left' ? 1 : -1) * Math.cos(angle * Math.PI / 180) * branchLength;
+                        }
+                        
+                        // ブランチもジグザグに
+                        const midX = (startX + endX) / 2 + (Math.random() - 0.5) * 3;
+                        const midY = (startY + endY) / 2 + (Math.random() - 0.5) * 3;
+                        const branchPath = `M${startX} ${startY} L${midX} ${midY} L${endX} ${endY}`;
+                        
+                        return (
+                          <motion.path
+                            key={`branch-${crackIndex}-${i}`}
+                            d={branchPath}
+                            stroke="rgba(255, 255, 255, 0.5)"
+                            strokeWidth="0.3"
+                            fill="none"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 0.6 }}
+                            transition={{ duration: 0.3, delay: 0.2 + i * 0.05 }}
+                          />
+                        );
+                      })
                     ))}
-                  </>
+                  </svg>
                 )}
 
                 {/* 破壊エフェクト（星） */}

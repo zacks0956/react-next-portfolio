@@ -227,9 +227,10 @@ export default function Hero() {
           variants={itemVariants}
           className={styles.description}
         >
-          完璧を目指しながらも、不完全さを受け入れることで成長し続ける。
+          完璧を目指し、不完全さを払拭することで成長する
           <br />
-          試行錯誤と学びを重ね、より良いものを創り上げていくプロセスを大切にしています。
+          試行錯誤と学びを重ね、より良いものを
+          <br />創り上げていくことを大切にしています
         </motion.p>
 
         {/* CTA Buttons */}

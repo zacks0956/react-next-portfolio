@@ -1,0 +1,49 @@
+.footer {
+  border-top: 1px solid rgb(38, 38, 38);
+  padding: 3rem 1.5rem;
+  margin-top: 5rem;
+}
+
+.container {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .content {
+    flex-direction: row;
+  }
+}
+
+.copyright {
+  color: rgb(115, 115, 115);
+  font-size: 0.875rem;
+}
+
+.brandName {
+  color: rgb(212, 212, 212);
+}
+
+.socialLinks {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.socialLink {
+  color: rgb(115, 115, 115);
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.socialLink:hover {
+  color: rgb(212, 212, 212);
+}

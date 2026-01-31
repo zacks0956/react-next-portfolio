@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import styles from './Header.module.css';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,123 +35,69 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800/50'
-          : 'bg-transparent'
+      className={`${styles.header} ${
+        isScrolled ? styles.headerScrolled : ''
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+      <nav className={styles.nav}>
+        <div className={styles.navContent}>
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-xl font-bold text-neutral-100 hover:text-white transition-colors"
+            className={styles.logo}
           >
-            Code by <span className="text-blue-400">Sho</span>
+            Code by <span className={styles.brandHighlight}>Sho</span>
           </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <motion.button
-              onClick={() => scrollToSection('about')}
-              animate={clickedButton === 'about' ? { 
-                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
-              } : { rotate: 0 }}
-              transition={clickedButton === 'about' ? {
-                duration: 0.6,
-                ease: "easeInOut"
-              } : { type: "spring", stiffness: 300, damping: 20 }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
-              className="text-neutral-300 hover:text-white transition-colors text-sm"
-            >
-              概要
-            </motion.button>
-            <motion.button
-              onClick={() => scrollToSection('skills')}
-              animate={clickedButton === 'skills' ? { 
-                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
-              } : { rotate: 0 }}
-              transition={clickedButton === 'skills' ? {
-                duration: 0.6,
-                ease: "easeInOut"
-              } : { type: "spring", stiffness: 300, damping: 20 }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
-              className="text-neutral-300 hover:text-white transition-colors text-sm"
-            >
-              スキル
-            </motion.button>
-            <motion.button
-              onClick={() => scrollToSection('news')}
-              animate={clickedButton === 'news' ? { 
-                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
-              } : { rotate: 0 }}
-              transition={clickedButton === 'news' ? {
-                duration: 0.6,
-                ease: "easeInOut"
-              } : { type: "spring", stiffness: 300, damping: 20 }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
-              className="text-neutral-300 hover:text-white transition-colors text-sm"
-            >
-              ニュース
-            </motion.button>
-            <motion.button
-              onClick={() => scrollToSection('contact')}
-              animate={clickedButton === 'contact' ? { 
-                rotate: [-4, 3, -2, 1, -3, 2, -1, 0],
-              } : { rotate: 0 }}
-              transition={clickedButton === 'contact' ? {
-                duration: 0.6,
-                ease: "easeInOut"
-              } : { type: "spring", stiffness: 300, damping: 20 }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95, transition: { duration: 0.2 } }}
-              className="text-neutral-300 hover:text-white transition-colors text-sm"
-            >
-              お問い合わせ
-            </motion.button>
-          </div>
-
-          {/* Mobile Menu Button */}
+          {/* Hamburger Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-neutral-300 hover:text-white"
+            className={`${styles.mobileMenuButton} ${isMobileMenuOpen ? styles.active : ''}`}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 flex flex-col gap-4 border-t border-neutral-800 pt-4">
+          <div className={styles.mobileMenu}>
             <motion.button
               onClick={() => scrollToSection('about')}
               whileTap={{ scale: 0.95, x: 10 }}
-              className="text-neutral-300 hover:text-white transition-colors text-left"
+              className={styles.navButton}
             >
               概要
             </motion.button>
             <motion.button
               onClick={() => scrollToSection('skills')}
               whileTap={{ scale: 0.95, x: 10 }}
-              className="text-neutral-300 hover:text-white transition-colors text-left"
+              className={styles.navButton}
             >
               スキル
             </motion.button>
             <motion.button
               onClick={() => scrollToSection('news')}
               whileTap={{ scale: 0.95, x: 10 }}
-              className="text-neutral-300 hover:text-white transition-colors text-left"
+              className={styles.navButton}
             >
               ニュース
             </motion.button>
+            <Link href="/blog">
+              <motion.div
+                whileTap={{ scale: 0.95, x: 10 }}
+                onClick={() => {
+                  setClickedButton('blog');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={styles.navButton}
+              >
+                ブログ
+              </motion.div>
+            </Link>
             <motion.button
               onClick={() => scrollToSection('contact')}
               whileTap={{ scale: 0.95, x: 10 }}
-              className="text-neutral-300 hover:text-white transition-colors text-left"
+              className={styles.navButton}
             >
               お問い合わせ
             </motion.button>

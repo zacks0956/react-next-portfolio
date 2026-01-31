@@ -4,6 +4,7 @@ import { Calendar, Tag, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import StarsBackground from '../../components/StarsBackground';
+import Header from '../../components/Header';
 import styles from './page.module.css';
 
 type Props = {
@@ -38,6 +39,9 @@ export default async function NewsDetailPage({ params }: Props) {
         <div className="absolute inset-0 bg-black/50"></div>
         <StarsBackground />
       </div>
+
+      {/* Header */}
+      <Header />
 
       {/* Content */}
       <div className="relative z-10">

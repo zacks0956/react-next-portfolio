@@ -1,0 +1,127 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+.headerScrolled {
+  background-color: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(38, 38, 38, 0.5);
+}
+
+.nav {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+}
+
+.navContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: rgb(245, 245, 245);
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logo:hover {
+  color: rgb(255, 255, 255);
+}
+
+.brandHighlight {
+  color: rgb(96, 165, 250);
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .desktopNav {
+    display: flex;
+  }
+}
+
+.navButton {
+  display: block;
+  width: 100%;
+  color: rgb(212, 212, 212);
+  transition: color 0.3s ease;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem 0;
+  text-align: left;
+}
+
+.navButton:hover {
+  color: rgb(255, 255, 255);
+}
+
+.mobileMenuButton {
+  display: block;
+  color: rgb(212, 212, 212);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 0.25rem;
+}
+
+.mobileMenuButton:hover {
+  color: rgb(255, 255, 255);
+  background-color: rgba(96, 165, 250, 0.1);
+}
+
+.mobileMenuButton.active {
+  color: rgb(96, 165, 250);
+  background-color: rgba(96, 165, 250, 0.1);
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 280px;
+  background-color: rgba(23, 23, 23, 0.98);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  margin-right: 1.5rem;
+  padding: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(96, 165, 250, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.mobileMenu a {
+  text-decoration: none;
+  display: block;
+}

@@ -1,35 +1,100 @@
 'use client';
 
-import Link from 'next/link';
-import { ArrowLeft, Home } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import styles from './BlogHeader.module.css';
 
 export default function BlogHeader() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [clickedButton, setClickedButton] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navigateToPortfolioSection = (sectionId: string) => {
+    setClickedButton(sectionId);
+    window.location.href = `/portfolio#${sectionId}`;
+    setIsMobileMenuOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800/50">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center justify-between">
+    <header
+      className={`${styles.header} ${
+        isScrolled ? styles.headerScrolled : ''
+      }`}
+    >
+      <nav className={styles.nav}>
+        <div className={styles.navContent}>
           {/* Logo */}
-          <Link 
-            href="/blog"
-            className="text-xl font-bold text-neutral-100 hover:text-blue-400 transition-colors"
+          <Link
+            href="/portfolio"
+            className={styles.logo}
           >
-            Blog by <span className="text-blue-400">Sho</span>
+            Code by <span className={styles.brandHighlight}>Sho</span>
           </Link>
 
-          {/* Navigation */}
-          <div className="flex items-center gap-4">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/portfolio"
-                className="flex items-center gap-2 px-4 py-2 text-sm text-neutral-300 hover:text-neutral-100 transition-colors"
-              >
-                <Home size={18} />
-                <span className="hidden sm:inline">ポートフォリオ</span>
-              </Link>
-            </motion.div>
-          </div>
+          {/* Hamburger Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`${styles.menuButton} ${isMobileMenuOpen ? styles.active : ''}`}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+
+        {/* Menu */}
+        {isMobileMenuOpen && (
+          <div className={styles.menu}>
+            <motion.button
+              onClick={() => navigateToPortfolioSection('about')}
+              whileTap={{ scale: 0.95, x: 10 }}
+              className={styles.navButton}
+            >
+              概要
+            </motion.button>
+            <motion.button
+              onClick={() => navigateToPortfolioSection('skills')}
+              whileTap={{ scale: 0.95, x: 10 }}
+              className={styles.navButton}
+            >
+              スキル
+            </motion.button>
+            <motion.button
+              onClick={() => navigateToPortfolioSection('news')}
+              whileTap={{ scale: 0.95, x: 10 }}
+              className={styles.navButton}
+            >
+              ニュース
+            </motion.button>
+            <Link href="/blog">
+              <motion.div
+                whileTap={{ scale: 0.95, x: 10 }}
+                onClick={() => {
+                  setClickedButton('blog');
+                  setIsMobileMenuOpen(false);
+                }}
+                className={styles.navButton}
+              >
+                ブログ
+              </motion.div>
+            </Link>
+            <motion.button
+              onClick={() => navigateToPortfolioSection('contact')}
+              whileTap={{ scale: 0.95, x: 10 }}
+              className={styles.navButton}
+            >
+              お問い合わせ
+            </motion.button>
+          </div>
+        )}
       </nav>
     </header>
   );
