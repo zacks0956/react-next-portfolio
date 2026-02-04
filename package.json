@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.1.0",
+    "@tailwindcss/typography": "^0.5.19",
     "autoprefixer": "^10.4.23",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.19",

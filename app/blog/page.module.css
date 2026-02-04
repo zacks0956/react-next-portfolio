@@ -1,0 +1,50 @@
+/* Blog List Page Styles */
+
+.pageContainer {
+  min-height: 100vh;
+  background-color: #0a0a0a; /* neutral-950 */
+  color: #e5e5e5; /* neutral-200 */
+}
+
+.mainContent {
+  max-width: 80rem; /* 1280px - max-w-7xl */
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .mainContent {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mainContent {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Header Section */
+.header {
+  margin-bottom: 3rem;
+}
+
+.pageTitle {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 700;
+  color: #fafafa; /* neutral-100 */
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .pageTitle {
+    font-size: 3rem; /* 48px */
+  }
+}
+
+.pageDescription {
+  font-size: 1.125rem;
+  color: #a3a3a3; /* neutral-400 */
+}

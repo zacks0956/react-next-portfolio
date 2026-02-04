@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { Blog, Category } from '@/app/lib/microcms';
 import { useState } from 'react';
+import styles from './BlogList.module.css';
 
 interface BlogListProps {
   posts: Blog[];
@@ -78,19 +79,15 @@ export default function BlogList({ posts, categories }: BlogListProps) {
     <div>
       {/* Category filter */}
       {categories.length > 0 && (
-        <div className="mb-6">
-          <h3 className="text-sm font-semibold text-neutral-400 mb-3">カテゴリー</h3>
-          <div className="flex flex-wrap gap-3">
+        <div className={styles.filterSection}>
+          <h3 className={styles.filterTitle}>カテゴリー</h3>
+          <div className={styles.filterButtons}>
             <button
               onClick={() => {
                 setSelectedCategory(null);
                 setSelectedTag(null);
               }}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === null
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-              }`}
+              className={`${styles.filterButton} ${selectedCategory === null ? styles.active : ''}`}
             >
               すべて ({posts.length})
             </button>
@@ -103,11 +100,7 @@ export default function BlogList({ posts, categories }: BlogListProps) {
                     setSelectedCategory(category.name);
                     setSelectedTag(null);
                   }}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    selectedCategory === category.name
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-                  }`}
+                  className={`${styles.filterButton} ${selectedCategory === category.name ? styles.active : ''}`}
                 >
                   {category.name} ({count})
                 </button>
@@ -119,18 +112,14 @@ export default function BlogList({ posts, categories }: BlogListProps) {
 
       {/* Tag filter - only show when there are tags */}
       {availableTags.length > 0 && (
-        <div className="mb-8">
-          <h3 className="text-sm font-semibold text-neutral-400 mb-3">
+        <div className={styles.tagFilterSection}>
+          <h3 className={styles.filterTitle}>
             タグ {selectedCategory && `(${selectedCategory})`}
           </h3>
-          <div className="flex flex-wrap gap-2">
+          <div className={styles.filterButtons}>
             <button
               onClick={() => setSelectedTag(null)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                selectedTag === null
-                  ? 'bg-purple-500 text-white'
-                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-              }`}
+              className={`${styles.tagButton} ${selectedTag === null ? styles.active : ''}`}
             >
               すべてのタグ
             </button>
@@ -144,11 +133,7 @@ export default function BlogList({ posts, categories }: BlogListProps) {
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(tag)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                    selectedTag === tag
-                      ? 'bg-purple-500 text-white'
-                      : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700'
-                  }`}
+                  className={`${styles.tagButton} ${selectedTag === tag ? styles.active : ''}`}
                 >
                   #{tag} ({count})
                 </button>
@@ -160,7 +145,7 @@ export default function BlogList({ posts, categories }: BlogListProps) {
 
       {/* Posts grid */}
       {filteredPosts.length === 0 ? (
-        <div className="text-center py-12 text-neutral-400">
+        <div className={styles.emptyState}>
           記事が見つかりませんでした
         </div>
       ) : (
@@ -168,7 +153,7 @@ export default function BlogList({ posts, categories }: BlogListProps) {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className={styles.postsGrid}
         >
           {filteredPosts.map((post) => (
             <motion.article
@@ -178,33 +163,33 @@ export default function BlogList({ posts, categories }: BlogListProps) {
             >
               <Link 
                 href={`/blog/${post.id}`}
-                className="block bg-neutral-900/50 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300"
+                className={styles.postCard}
               >
                 {/* Thumbnail */}
                 {post.thumbnail && (
-                  <div className="relative w-full h-48 overflow-hidden">
+                  <div className={styles.thumbnailContainer}>
                     <Image
                       src={post.thumbnail.url}
                       alt={post.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      className={styles.thumbnailImage}
                       loading="lazy"
                     />
                   </div>
                 )}
 
-                <div className="p-6">
+                <div className={styles.cardContent}>
                   {/* Meta */}
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    <div className="flex items-center gap-1.5 text-xs text-neutral-400">
+                  <div className={styles.cardMeta}>
+                    <div className={styles.cardDate}>
                       <Calendar size={14} />
                       <time dateTime={post.publishedAt}>
                         {formatDate(post.publishedAt)}
                       </time>
                     </div>
                     {post.category && (
-                      <div className="flex items-center gap-1.5 text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">
+                      <div className={styles.cardCategory}>
                         <Tag size={12} />
                         <span>{post.category.name}</span>
                       </div>
@@ -212,17 +197,17 @@ export default function BlogList({ posts, categories }: BlogListProps) {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-neutral-100 mb-2 line-clamp-2 group-hover:text-blue-400 transition-colors">
+                  <h3 className={styles.cardTitle}>
                     {post.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-sm text-neutral-400 line-clamp-3 mb-4">
+                  <p className={styles.cardDescription}>
                     {post.description || post.content.replace(/<[^>]*>/g, '').substring(0, 100) + '...'}
                   </p>
 
                   {/* Read more */}
-                  <div className="flex items-center gap-2 text-blue-400 text-sm font-medium group-hover:gap-3 transition-all">
+                  <div className={styles.readMore}>
                     <span>続きを読む</span>
                     <ArrowRight size={16} />
                   </div>
