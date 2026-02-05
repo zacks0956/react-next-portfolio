@@ -1,6 +1,7 @@
 import { getBlogList, getCategoryList } from '@/app/lib/microcms';
 import BlogList from './components/BlogList';
 import BlogHeader from './components/BlogHeader';
+import StarsBackground from '@/app/portfolio/components/StarsBackground';
 import styles from './page.module.css';
 
 export const metadata = {
@@ -16,8 +17,21 @@ export default async function BlogPage() {
 
   return (
     <div className={styles.pageContainer}>
+      {/* Fixed background */}
+      <div 
+        className={styles.fixedBackground}
+        style={{ backgroundImage: 'url(/night.png)' }}
+      >
+        <div className={styles.overlay}></div>
+        <StarsBackground />
+      </div>
+
+      {/* Header */}
       <BlogHeader />
-      <main className={styles.mainContent}>
+
+      {/* Content */}
+      <div className={styles.relativeContent}>
+        <main className={styles.mainContent}>
         <div className={styles.header}>
           <h1 className={styles.pageTitle}>
             Blog
@@ -27,7 +41,8 @@ export default async function BlogPage() {
           </p>
         </div>
         <BlogList posts={blogData.contents} categories={categoryData.contents} />
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

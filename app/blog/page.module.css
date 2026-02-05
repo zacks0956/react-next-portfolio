@@ -2,8 +2,28 @@
 
 .pageContainer {
   min-height: 100vh;
-  background-color: #0a0a0a; /* neutral-950 */
   color: #e5e5e5; /* neutral-200 */
+  position: relative;
+}
+
+.fixedBackground {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.relativeContent {
+  position: relative;
+  z-index: 10;
 }
 
 .mainContent {
